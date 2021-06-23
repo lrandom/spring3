@@ -8,8 +8,16 @@
     <title>Document</title>
 </head>
 <body>
-  <div th:insert="~{commons.html::nav(Luan)}"></div>
-  Đây là trang chủ
-  <div th:insert="~{commons.html::footer}"></div>
+    <nav th:fragment="nav(name)" style="display: flex;justify-content: flex-start">
+        <a>Home</a>
+        <a>Danh mục</a>
+        <a>About</a>
+        <a th:text="${name}"></a>
+    </nav>
+
+    <footer th:fragment="footer">
+        NIIT giữ bản quyền website này
+    </footer>
+
 </body>
 </html>

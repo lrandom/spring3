@@ -1,13 +1,38 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" xmlns:th="http://thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+          content=¡"width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
+    <link rel="stylesheet" th:href="@{/style.css}">
 </head>
 <body>
-   Đây là trang về chúng tôi
+   <div th:text="#{Hi}"></div>
+   <div th:text="${content}"></div>
+
+   <ul th:object="${companyInfo}">
+       <li th:text="*{name}"></li>
+       <li th:text="*{address}"></li>
+       <li th:text="*{fax}"></li>
+       <li th:text="*{phone}"></li>
+   </ul>
+
+    <div>Đội ngũ của chúng tôi</div>
+    <ul>
+        <li th:each="name:${staffNames}">
+            <span th:text="${name}"></span>
+        </li>
+    </ul>
+
+
+    <div th:if="${1==90}">Xin chào các bạn</div>
+
+    <div th:switch="${type}">
+        <div th:case="'1'">Giá trị bằng 1</div>
+        <div th:case="'2'">Giá trị bằng 2</div>
+        <div th:case="'3'">Giá trị bằng 3</div>
+    </div>
 </body>
 </html>
