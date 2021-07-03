@@ -21,15 +21,27 @@ public class PostCrudController {
         //lưu một bản ghi thành công
     }
 
-  /*  public String delete() {
-
+    @GetMapping("/crud/delete")
+    public void delete() {
+        postRepo.deleteById(new Long(2).longValue());
     }
 
-    public String getAll() {
-
+    @GetMapping("/crud/getAll")
+    public void getAll() {
+         Iterable<Post> posts =  postRepo.findAll();
+        for (Post post  :posts ) {
+            System.out.println(post.getContent());
+            System.out.println(post.getId());
+            System.out.println(post.getKeyword());
+            System.out.println(post.getTitle());
+        }
     }
 
-    public String update() {
-
-    }*/
+    @GetMapping("/crud/update")
+    public void update() {
+        Post post =  postRepo.findById(new Long(2).longValue()).get();
+        post.setTitle("Chống COVID 4 thành công");
+        post.setKeyword("COVID, CODOVA");
+        postRepo.save(post);
+    }
 }
