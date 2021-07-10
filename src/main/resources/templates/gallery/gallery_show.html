@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div class="gallery">
+        <div th:each="item:${images}">
+               <img class="item" th:src="${item.getPath()}"/>
+               <h5 th:text="${item.getTitle()}"></h5>
+        </div>
+
+        <ul>
+            <li
+                    th:each="pageNumber:${#numbers.sequence(1, totalPages)}"
+                    th:attr="class=${activePage==pageNumber ? 'active page-item' : 'page-item'}"
+                    th:if="${pageNumber>0}">
+                <a class="page-link" th:href="@{/gallery/show(page=${pageNumber})}"
+                   th:text="${pageNumber}"
+                ></a>
+            </li>
+
+        </ul>
+
+
+        <div class="modal hide">
+            <button onclick="closeModal()">Close</button>
+            <img id="imgPreview"/>
+        </div>
+    </div>
+
+    <script>
+        const images = document.querySelectorAll('.item');
+        for (let i=0;i<images.length;i++){
+            images[i].addEventListener('click',function (evt){
+                const src = evt.target.getAttribute('src');
+                const previewImage =  document.getElementById('imgPreview');
+                previewImage.setAttribute('src',src);
+
+                const modal = document.querySelector('.modal');
+                modal.classList.remove('hide');
+            });
+        }
+
+        function closeModal(){
+            const modal = document.querySelector('.modal');
+            modal.classList.add('hide');
+        }
+    </script>
+
+    <style>
+        .gallery {
+            width:86%;
+            margin:0px auto;
+            overflow-y: auto;
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .gallery >div{
+            padding: 20px;
+        }
+
+        .gallery img{
+            width:250px;
+            height: 250px;
+        }
+
+        .modal{
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: #00000033;
+        }
+
+        .hide{
+            display: none;
+        }
+
+        ul {
+            display: block;
+            position: relative;
+            overflow:hidden;
+            margin-top: 10px;
+        }
+
+        ul li{
+            display: block;
+            list-style: none;
+            margin:0px;
+            padding:0px;
+            float:left
+        }
+
+        ul li a{
+            padding:5px;
+            border:1px solid black;
+            color:black;
+            background: white;
+        }
+
+        ul li.active a{
+            background: black;
+            color:white
+        }
+
+    </style>
+</body>
+</html>
